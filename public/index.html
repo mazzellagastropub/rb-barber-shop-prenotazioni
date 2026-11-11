@@ -5,103 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prenota – RB Barber Shop</title>
 <meta name="description" content="Prenota taglio e barba da RB Barber Shop, Bacoli.">
-<meta name="theme-color" content="#111111">
-<link rel="icon" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0c0b0a">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#111; --ink-2:#4a4a4a; --line:#dcdcdc; --paper:#fafaf8; --card:#fff; --muted:#8a8a8a;
-    --accent:#111; --on-accent:#fff; --soft:#f0efec; --err:#a4262c;
+    --bg:#0c0b0a; --bg-2:#141210; --card:#181614; --card-2:#201d1a;
+    --line:#2c2824; --line-2:#3a352f;
+    --text:#f3eee6; --text-2:#b9b1a5; --muted:#7d7569;
+    --brass:#c9a96b; --brass-2:#e2c88f; --brass-dk:#8f7444; --on-brass:#16120c;
+    --err:#e07a6f;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-  .wrap{max-width:520px;margin:0 auto;padding:0 16px calc(32px + env(safe-area-inset-bottom))}
-  header{text-align:center;padding:28px 0 8px}
-  header img{width:116px;height:116px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#fff}
-  h1{font:700 22px/1.2 Cinzel,serif;letter-spacing:.06em;margin:14px 0 4px}
-  .sub{color:var(--ink-2);font-size:14px;margin:0}
-  section{margin-top:28px}
-  h2{font:500 13px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 12px;display:flex;gap:10px;align-items:center}
-  h2 .n{font:700 13px/1 Cinzel,serif;width:24px;height:24px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;letter-spacing:0}
+  html{-webkit-text-size-adjust:100%;background:var(--bg)}
+  body{margin:0;min-height:100vh;color:var(--text);font:16px/1.55 Manrope,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;
+    background:radial-gradient(120% 60% at 50% -10%,#2a221a 0%,rgba(12,11,10,0) 60%),var(--bg)}
+  ::selection{background:var(--brass);color:var(--on-brass)}
+  .wrap{max-width:520px;margin:0 auto;padding:0 18px calc(40px + env(safe-area-inset-bottom))}
+
+  /* Hero */
+  .hero{text-align:center;padding:calc(34px + env(safe-area-inset-top)) 0 10px}
+  .logo{width:150px;height:150px;margin:0 auto;display:block;filter:invert(1);mix-blend-mode:screen;opacity:.95}
+  .kicker{font:600 11px/1 Manrope,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin:18px 0 0}
+  h1{font:600 30px/1.15 Cinzel,serif;letter-spacing:.03em;margin:12px 0 0}
+  .orn{display:flex;align-items:center;gap:12px;justify-content:center;margin:18px auto 0;width:180px;color:var(--brass)}
+  .orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brass-dk))}
+  .orn::after{background:linear-gradient(90deg,var(--brass-dk),transparent)}
+  .orn span{width:6px;height:6px;transform:rotate(45deg);border:1px solid var(--brass)}
+
+  /* Steps */
+  section{margin-top:40px}
+  .step{display:flex;align-items:baseline;gap:12px;margin:0 0 16px}
+  .step .n{font:600 15px/1 Cinzel,serif;color:var(--brass);min-width:30px}
+  .step h2{font:600 12px/1 Manrope,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--text-2);margin:0}
+  .step .val{margin-left:auto;font-size:13px;color:var(--brass-2)}
+
+  button{font:inherit;color:inherit}
   .servizi{display:grid;gap:10px}
-  .opt{appearance:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;text-align:left;font:inherit;color:inherit;display:flex;justify-content:space-between;align-items:center;cursor:pointer;min-height:56px;transition:border-color .15s,background .15s}
-  .opt b{font-weight:700}
-  .opt small{color:var(--muted)}
-  .opt[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--on-accent)}
-  .opt[aria-pressed=true] small{color:#bdbdbd}
-  .giorni{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+  .opt{appearance:none;width:100%;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:border-color .2s,background .2s,transform .1s}
+  .opt:active{transform:scale(.99)}
+  .opt .dot{width:20px;height:20px;border-radius:50%;border:1px solid var(--line-2);flex:0 0 20px;display:grid;place-items:center;transition:border-color .2s}
+  .opt .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brass);transform:scale(0);transition:transform .2s}
+  .opt .nome{font:600 18px/1.2 Cinzel,serif;letter-spacing:.02em}
+  .opt .dur{margin-left:auto;font-size:13px;color:var(--muted)}
+  .opt[aria-pressed=true]{border-color:var(--brass);background:linear-gradient(180deg,#221d16,#1a1713)}
+  .opt[aria-pressed=true] .dot{border-color:var(--brass)}
+  .opt[aria-pressed=true] .dot::after{transform:scale(1)}
+  .opt[aria-pressed=true] .dur{color:var(--brass-2)}
+
+  .giorni{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;margin:0 -18px;padding:2px 18px 10px;scrollbar-width:none}
   .giorni::-webkit-scrollbar{display:none}
-  .g{flex:0 0 64px;scroll-snap-align:start;appearance:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 0;font:inherit;color:inherit;cursor:pointer;text-align:center}
-  .g span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-  .g strong{display:block;font:700 20px/1.3 Cinzel,serif}
-  .g:disabled{opacity:.35;cursor:default}
-  .g[aria-pressed=true]{background:var(--ink);color:var(--on-accent);border-color:var(--ink)}
-  .g[aria-pressed=true] span{color:#bdbdbd}
-  .mese{font-size:14px;color:var(--ink-2);margin:-4px 0 10px}
+  .g{flex:0 0 62px;scroll-snap-align:start;appearance:none;cursor:pointer;text-align:center;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 0 10px;transition:all .2s}
+  .g span{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .g strong{display:block;font:600 22px/1.25 Cinzel,serif;margin-top:2px}
+  .g:disabled{opacity:.28;cursor:default}
+  .g[aria-pressed=true]{background:var(--brass);border-color:var(--brass);color:var(--on-brass)}
+  .g[aria-pressed=true] span{color:#4a3c22}
+
   .orari{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .o{appearance:none;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:12px 0;font:500 15px Manrope,sans-serif;color:inherit;cursor:pointer}
-  .o[aria-pressed=true]{background:var(--ink);color:var(--on-accent);border-color:var(--ink)}
-  .gruppo{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:4px 0 8px;grid-column:1/-1}
-  .info{color:var(--ink-2);font-size:14px;background:var(--soft);border-radius:12px;padding:14px}
-  label{display:block;font-size:14px;font-weight:500;margin:0 0 6px}
-  input,textarea{width:100%;font:16px Manrope,sans-serif;border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--card);color:var(--ink);outline:none}
-  input:focus,textarea:focus{border-color:var(--ink)}
-  .campo{margin-bottom:14px}
-  .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .riepilogo{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;font-size:15px;margin-bottom:14px}
-  .riepilogo div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+  .gruppo{grid-column:1/-1;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:6px 0 2px}
+  .o{appearance:none;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 0;font:600 15px Manrope,sans-serif;font-variant-numeric:tabular-nums;transition:all .2s}
+  .o[aria-pressed=true]{background:var(--brass);border-color:var(--brass);color:var(--on-brass)}
+
+  .info{color:var(--text-2);font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;grid-column:1/-1;margin:0}
+  .info a{color:var(--brass-2)}
+
+  .riepilogo{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 18px;margin-bottom:18px}
+  .riepilogo div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .riepilogo div:last-child{border-bottom:0}
   .riepilogo span{color:var(--muted)}
-  .btn{display:block;width:100%;appearance:none;border:0;border-radius:14px;background:var(--ink);color:var(--on-accent);font:700 16px Manrope,sans-serif;padding:16px;cursor:pointer;text-align:center;text-decoration:none}
-  .btn:disabled{opacity:.4;cursor:default}
-  .btn.sec{background:transparent;color:var(--ink);border:1px solid var(--ink);margin-top:10px}
-  .err{color:var(--err);font-size:14px;margin:10px 0 0}
-  .ok{text-align:center;padding:24px 0}
-  .ok .check{width:64px;height:64px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;margin:0 auto 16px;font-size:30px}
-  .ok h2{justify-content:center;font:700 22px/1.2 Cinzel,serif;letter-spacing:.04em;text-transform:none;color:var(--ink)}
-  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2);text-align:center;line-height:1.7}
-  footer a{color:var(--ink)}
+  .riepilogo b{font-weight:600;text-align:right}
+
+  label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin:0 0 8px}
+  input,textarea{width:100%;font:16px Manrope,sans-serif;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;outline:none;transition:border-color .2s}
+  input::placeholder,textarea::placeholder{color:var(--muted)}
+  input:focus,textarea:focus{border-color:var(--brass)}
+  .campo{margin-bottom:16px}
+  .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .btn{display:block;width:100%;appearance:none;border:0;border-radius:16px;cursor:pointer;text-align:center;text-decoration:none;
+    background:linear-gradient(180deg,var(--brass-2),var(--brass));color:var(--on-brass);font:700 16px Manrope,sans-serif;letter-spacing:.04em;padding:18px;
+    box-shadow:0 10px 30px -12px rgba(201,169,107,.55);transition:transform .1s,opacity .2s}
+  .btn:active{transform:scale(.99)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .btn.sec{background:transparent;color:var(--text);border:1px solid var(--line-2);box-shadow:none;margin-top:12px;font-weight:600}
+  .err{color:var(--err);font-size:14px;margin:12px 0 0;min-height:1em}
+
+  .ok{text-align:center;padding-top:30px}
+  .ok .check{width:72px;height:72px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;border:1px solid var(--brass);color:var(--brass);font-size:30px}
+  .ok h2{font:600 26px/1.2 Cinzel,serif;margin:0 0 8px}
+  .ok .sub{color:var(--text-2);font-size:15px;margin:0 0 24px}
+  .ok .riepilogo{text-align:left}
+
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:14px;color:var(--text-2);line-height:1.8}
+  footer .t{font:600 12px/1 Cinzel,serif;letter-spacing:.24em;color:var(--brass);margin-bottom:12px}
+  footer a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--line-2)}
+  .links{display:flex;gap:18px;justify-content:center;margin-top:10px}
+
   .hidden{display:none!important}
-  .skel{height:44px;border-radius:10px;background:linear-gradient(90deg,var(--soft),#e6e5e1,var(--soft));background-size:200% 100%;animation:sk 1.2s infinite}
+  .reveal{animation:in .35s ease both}
+  @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .skel{height:56px;border-radius:14px;background:linear-gradient(90deg,var(--card),var(--card-2),var(--card));background-size:200% 100%;animation:sk 1.2s infinite}
   @keyframes sk{to{background-position:-200% 0}}
-  @media (prefers-reduced-motion:reduce){.skel{animation:none}}
+  @media (prefers-reduced-motion:reduce){.reveal,.skel{animation:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="logo.jpg" alt="RB Barber Shop" width="116" height="116">
-    <h1>RB BARBER SHOP</h1>
-    <p class="sub">Viale Carlo Vanvitelli 6, Bacoli</p>
+  <header class="hero">
+    <img class="logo" src="/logo.jpg" alt="RB Barber Shop" width="150" height="150">
+    <p class="kicker">Barber shop · Bacoli</p>
+    <h1>Prenota il tuo posto</h1>
+    <div class="orn" aria-hidden="true"><span></span></div>
   </header>
 
   <main id="form">
     <section>
-      <h2><span class="n">1</span>Servizio</h2>
+      <div class="step"><span class="n">I</span><h2>Servizio</h2></div>
       <div class="servizi" id="servizi"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
     </section>
 
-    <section id="secGiorno" class="hidden">
-      <h2><span class="n">2</span>Giorno</h2>
-      <p class="mese" id="mese"></p>
+    <section id="secGiorno" class="hidden reveal">
+      <div class="step"><span class="n">II</span><h2>Giorno</h2><span class="val" id="mese"></span></div>
       <div class="giorni" id="giorni"></div>
     </section>
 
-    <section id="secOra" class="hidden">
-      <h2><span class="n">3</span>Orario</h2>
+    <section id="secOra" class="hidden reveal">
+      <div class="step"><span class="n">III</span><h2>Orario</h2></div>
       <div class="orari" id="orari"></div>
     </section>
 
-    <section id="secDati" class="hidden">
-      <h2><span class="n">4</span>I tuoi dati</h2>
+    <section id="secDati" class="hidden reveal">
+      <div class="step"><span class="n">IV</span><h2>I tuoi dati</h2></div>
       <div class="riepilogo" id="riepilogo"></div>
       <form id="dati" novalidate>
         <div class="campo"><label for="nome">Nome e cognome</label><input id="nome" name="nome" autocomplete="name" required maxlength="60"></div>
-        <div class="campo"><label for="telefono">Telefono</label><input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="es. 333 123 4567"></div>
-        <div class="campo"><label for="note">Note (facoltativo)</label><textarea id="note" name="note" rows="2" maxlength="200"></textarea></div>
+        <div class="campo"><label for="telefono">Telefono</label><input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="333 123 4567"></div>
+        <div class="campo"><label for="note">Note</label><textarea id="note" name="note" rows="2" maxlength="200" placeholder="Facoltativo"></textarea></div>
         <div class="trap" aria-hidden="true"><label for="sito">Sito</label><input id="sito" name="sito" tabindex="-1" autocomplete="off"></div>
         <button class="btn" id="invia" type="submit">Conferma prenotazione</button>
         <p class="err" id="errore" role="alert"></p>
@@ -109,20 +154,25 @@
     </section>
   </main>
 
-  <div id="fatto" class="ok hidden">
+  <div id="fatto" class="ok hidden reveal">
     <div class="check">✓</div>
-    <h2>Prenotazione confermata</h2>
-    <div class="riepilogo" id="riepilogoOk" style="text-align:left"></div>
-    <p class="sub">Se non puoi venire, avvisaci almeno 2 ore prima.</p>
-    <p style="margin-top:20px"><a class="btn" id="waOk" target="_blank" rel="noopener">Invia conferma su WhatsApp</a></p>
+    <h2>Ci vediamo presto</h2>
+    <p class="sub">La tua prenotazione è confermata.</p>
+    <div class="riepilogo" id="riepilogoOk"></div>
+    <p class="sub" style="font-size:14px">Se non puoi venire, avvisaci almeno 2 ore prima.</p>
+    <a class="btn" id="waOk" target="_blank" rel="noopener">Invia conferma su WhatsApp</a>
     <button class="btn sec" type="button" onclick="location.reload()">Nuova prenotazione</button>
   </div>
 
   <footer>
-    Martedì–sabato 9:00–13:00 · 15:00–20:00<br>
-    Domenica e lunedì chiuso<br>
-    <a href="https://wa.me/393486257618" target="_blank" rel="noopener">WhatsApp 348 625 7618</a> ·
-    <a href="https://www.instagram.com/rb_barber_shop_" target="_blank" rel="noopener">Instagram</a>
+    <div class="t">RB BARBER SHOP</div>
+    <a href="https://maps.google.com/?q=Viale+Carlo+Vanvitelli+6+Bacoli" target="_blank" rel="noopener">Viale Carlo Vanvitelli 6, Bacoli</a><br>
+    Martedì–sabato · 9:00–13:00 · 15:00–20:00<br>
+    Domenica e lunedì chiuso
+    <div class="links">
+      <a href="https://wa.me/393486257618" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.instagram.com/rb_barber_shop_" target="_blank" rel="noopener">Instagram</a>
+    </div>
   </footer>
 </div>
 
@@ -130,35 +180,27 @@
 const WA = "393486257618";
 const GG = ["Dom","Lun","Mar","Mer","Gio","Ven","Sab"];
 const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
-const st = { servizi: [], servizio: null, data: null, ora: null };
+const st = { servizio: null, data: null, ora: null };
 const $ = (id) => document.getElementById(id);
 
 const parse = (d) => { const [y,m,g] = d.split("-").map(Number); return new Date(Date.UTC(y, m-1, g)); };
 const dataLunga = (d) => { const x = parse(d); return `${["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"][x.getUTCDay()]} ${x.getUTCDate()} ${MESI[x.getUTCMonth()]}`; };
 
-function premi(contenitore, btn) {
-  contenitore.querySelectorAll("[aria-pressed]").forEach(b => b.setAttribute("aria-pressed", "false"));
-  btn.setAttribute("aria-pressed", "true");
-}
-function mostra(id) { $(id).classList.remove("hidden"); }
-function nascondi(id) { $(id).classList.add("hidden"); }
-function scorri(id) { setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 60); }
-
-function nonAttivo() {
-  $("servizi").innerHTML = `<p class="info">Le prenotazioni online non sono disponibili in questo momento. Scrivici su <a href="https://wa.me/${WA}">WhatsApp</a> e ti rispondiamo appena possibile.</p>`;
-}
+function premi(c, btn) { c.querySelectorAll("[aria-pressed]").forEach(b => b.setAttribute("aria-pressed", "false")); btn.setAttribute("aria-pressed", "true"); }
+const mostra = (id) => $(id).classList.remove("hidden");
+const nascondi = (id) => $(id).classList.add("hidden");
+const scorri = (id) => setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 80);
 
 async function avvio() {
   try {
     const r = await fetch("/api/info");
     if (!r.ok) throw 0;
     const { servizi, giorni } = await r.json();
-    st.servizi = servizi;
     const box = $("servizi"); box.innerHTML = "";
     servizi.forEach(s => {
       const b = document.createElement("button");
       b.type = "button"; b.className = "opt"; b.setAttribute("aria-pressed", "false");
-      b.innerHTML = `<b>${s.nome}</b><small>${s.durata} min</small>`;
+      b.innerHTML = `<span class="dot"></span><span class="nome">${s.nome}</span><span class="dur">${s.durata} min</span>`;
       b.onclick = () => { premi(box, b); st.servizio = s; st.ora = null; mostra("secGiorno"); nascondi("secDati"); if (st.data) caricaOrari(); else scorri("secGiorno"); };
       box.appendChild(b);
     });
@@ -172,8 +214,9 @@ async function avvio() {
       b.onclick = () => { premi(gb, b); st.data = g.data; st.ora = null; $("mese").textContent = dataLunga(g.data); nascondi("secDati"); caricaOrari(); };
       gb.appendChild(b);
     });
-    const primo = giorni.find(g => g.aperto); if (primo) $("mese").textContent = "Scegli il giorno";
-  } catch { nonAttivo(); }
+  } catch {
+    $("servizi").innerHTML = `<p class="info">Le prenotazioni online non sono disponibili in questo momento. Scrivici su <a href="https://wa.me/${WA}">WhatsApp</a>.</p>`;
+  }
 }
 
 async function caricaOrari() {
@@ -184,11 +227,10 @@ async function caricaOrari() {
   try {
     const r = await fetch(`/api/disponibilita?data=${st.data}&servizio=${st.servizio.id}`);
     const j = await r.json();
-    if (!r.ok) throw new Error(j.errore);
+    if (!r.ok) throw 0;
     box.innerHTML = "";
-    if (!j.orari.length) { box.innerHTML = '<p class="info" style="grid-column:1/-1">Nessun orario libero in questo giorno. Prova un altro giorno.</p>'; return; }
-    const mattina = j.orari.filter(o => o < "14:00"), pome = j.orari.filter(o => o >= "14:00");
-    [["Mattina", mattina], ["Pomeriggio", pome]].forEach(([t, lista]) => {
+    if (!j.orari.length) { box.innerHTML = '<p class="info">Nessun orario libero in questo giorno. Prova un altro giorno.</p>'; return; }
+    [["Mattina", j.orari.filter(o => o < "14:00")], ["Pomeriggio", j.orari.filter(o => o >= "14:00")]].forEach(([t, lista]) => {
       if (!lista.length) return;
       const h = document.createElement("p"); h.className = "gruppo"; h.textContent = t; box.appendChild(h);
       lista.forEach(o => {
@@ -198,12 +240,10 @@ async function caricaOrari() {
         box.appendChild(b);
       });
     });
-  } catch { box.innerHTML = `<p class="info" style="grid-column:1/-1">Non riesco a caricare gli orari. Riprova tra poco o scrivici su <a href="https://wa.me/${WA}">WhatsApp</a>.</p>`; }
+  } catch { box.innerHTML = `<p class="info">Non riesco a caricare gli orari. Riprova tra poco o scrivici su <a href="https://wa.me/${WA}">WhatsApp</a>.</p>`; }
 }
 
-function righe() {
-  return `<div><span>Servizio</span><b>${st.servizio.nome}</b></div><div><span>Giorno</span><b>${dataLunga(st.data)}</b></div><div><span>Orario</span><b>${st.ora}</b></div>`;
-}
+const righe = () => `<div><span>Servizio</span><b>${st.servizio.nome}</b></div><div><span>Giorno</span><b>${dataLunga(st.data)}</b></div><div><span>Orario</span><b>${st.ora}</b></div>`;
 function riepilogo() { $("riepilogo").innerHTML = righe(); $("errore").textContent = ""; }
 
 $("dati").addEventListener("submit", async (e) => {
@@ -216,11 +256,7 @@ $("dati").addEventListener("submit", async (e) => {
     const r = await fetch("/api/prenota", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ servizio: st.servizio.id, data: st.data, ora: st.ora, nome, telefono, note: $("note").value, sito: $("sito").value }) });
     const j = await r.json();
-    if (!r.ok) {
-      $("errore").textContent = j.errore || "Qualcosa non ha funzionato, riprova.";
-      if (r.status === 409) caricaOrari();
-      throw 0;
-    }
+    if (!r.ok) { $("errore").textContent = j.errore || "Qualcosa non ha funzionato, riprova."; if (r.status === 409) caricaOrari(); throw 0; }
     nascondi("form");
     $("riepilogoOk").innerHTML = righe();
     const testo = `Ciao, ho prenotato ${st.servizio.nome.toLowerCase()} per ${dataLunga(st.data)} alle ${st.ora}. ${nome}`;
