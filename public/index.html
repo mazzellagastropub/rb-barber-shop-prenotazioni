@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prenota – RB Barber Shop</title>
+<meta name="description" content="Prenota taglio e barba da RB Barber Shop, Bacoli.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111; --ink-2:#4a4a4a; --line:#dcdcdc; --paper:#fafaf8; --card:#fff; --muted:#8a8a8a;
+    --accent:#111; --on-accent:#fff; --soft:#f0efec; --err:#a4262c;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Manrope,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:520px;margin:0 auto;padding:0 16px calc(32px + env(safe-area-inset-bottom))}
+  header{text-align:center;padding:28px 0 8px}
+  header img{width:116px;height:116px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#fff}
+  h1{font:700 22px/1.2 Cinzel,serif;letter-spacing:.06em;margin:14px 0 4px}
+  .sub{color:var(--ink-2);font-size:14px;margin:0}
+  section{margin-top:28px}
+  h2{font:500 13px/1 Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 12px;display:flex;gap:10px;align-items:center}
+  h2 .n{font:700 13px/1 Cinzel,serif;width:24px;height:24px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;letter-spacing:0}
+  .servizi{display:grid;gap:10px}
+  .opt{appearance:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;text-align:left;font:inherit;color:inherit;display:flex;justify-content:space-between;align-items:center;cursor:pointer;min-height:56px;transition:border-color .15s,background .15s}
+  .opt b{font-weight:700}
+  .opt small{color:var(--muted)}
+  .opt[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--on-accent)}
+  .opt[aria-pressed=true] small{color:#bdbdbd}
+  .giorni{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+  .giorni::-webkit-scrollbar{display:none}
+  .g{flex:0 0 64px;scroll-snap-align:start;appearance:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 0;font:inherit;color:inherit;cursor:pointer;text-align:center}
+  .g span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .g strong{display:block;font:700 20px/1.3 Cinzel,serif}
+  .g:disabled{opacity:.35;cursor:default}
+  .g[aria-pressed=true]{background:var(--ink);color:var(--on-accent);border-color:var(--ink)}
+  .g[aria-pressed=true] span{color:#bdbdbd}
+  .mese{font-size:14px;color:var(--ink-2);margin:-4px 0 10px}
+  .orari{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .o{appearance:none;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:12px 0;font:500 15px Manrope,sans-serif;color:inherit;cursor:pointer}
+  .o[aria-pressed=true]{background:var(--ink);color:var(--on-accent);border-color:var(--ink)}
+  .gruppo{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:4px 0 8px;grid-column:1/-1}
+  .info{color:var(--ink-2);font-size:14px;background:var(--soft);border-radius:12px;padding:14px}
+  label{display:block;font-size:14px;font-weight:500;margin:0 0 6px}
+  input,textarea{width:100%;font:16px Manrope,sans-serif;border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--card);color:var(--ink);outline:none}
+  input:focus,textarea:focus{border-color:var(--ink)}
+  .campo{margin-bottom:14px}
+  .trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .riepilogo{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;font-size:15px;margin-bottom:14px}
+  .riepilogo div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+  .riepilogo span{color:var(--muted)}
+  .btn{display:block;width:100%;appearance:none;border:0;border-radius:14px;background:var(--ink);color:var(--on-accent);font:700 16px Manrope,sans-serif;padding:16px;cursor:pointer;text-align:center;text-decoration:none}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.sec{background:transparent;color:var(--ink);border:1px solid var(--ink);margin-top:10px}
+  .err{color:var(--err);font-size:14px;margin:10px 0 0}
+  .ok{text-align:center;padding:24px 0}
+  .ok .check{width:64px;height:64px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;margin:0 auto 16px;font-size:30px}
+  .ok h2{justify-content:center;font:700 22px/1.2 Cinzel,serif;letter-spacing:.04em;text-transform:none;color:var(--ink)}
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2);text-align:center;line-height:1.7}
+  footer a{color:var(--ink)}
+  .hidden{display:none!important}
+  .skel{height:44px;border-radius:10px;background:linear-gradient(90deg,var(--soft),#e6e5e1,var(--soft));background-size:200% 100%;animation:sk 1.2s infinite}
+  @keyframes sk{to{background-position:-200% 0}}
+  @media (prefers-reduced-motion:reduce){.skel{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.jpg" alt="RB Barber Shop" width="116" height="116">
+    <h1>RB BARBER SHOP</h1>
+    <p class="sub">Viale Carlo Vanvitelli 6, Bacoli</p>
+  </header>
+
+  <main id="form">
+    <section>
+      <h2><span class="n">1</span>Servizio</h2>
+      <div class="servizi" id="servizi"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    </section>
+
+    <section id="secGiorno" class="hidden">
+      <h2><span class="n">2</span>Giorno</h2>
+      <p class="mese" id="mese"></p>
+      <div class="giorni" id="giorni"></div>
+    </section>
+
+    <section id="secOra" class="hidden">
+      <h2><span class="n">3</span>Orario</h2>
+      <div class="orari" id="orari"></div>
+    </section>
+
+    <section id="secDati" class="hidden">
+      <h2><span class="n">4</span>I tuoi dati</h2>
+      <div class="riepilogo" id="riepilogo"></div>
+      <form id="dati" novalidate>
+        <div class="campo"><label for="nome">Nome e cognome</label><input id="nome" name="nome" autocomplete="name" required maxlength="60"></div>
+        <div class="campo"><label for="telefono">Telefono</label><input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="es. 333 123 4567"></div>
+        <div class="campo"><label for="note">Note (facoltativo)</label><textarea id="note" name="note" rows="2" maxlength="200"></textarea></div>
+        <div class="trap" aria-hidden="true"><label for="sito">Sito</label><input id="sito" name="sito" tabindex="-1" autocomplete="off"></div>
+        <button class="btn" id="invia" type="submit">Conferma prenotazione</button>
+        <p class="err" id="errore" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <div id="fatto" class="ok hidden">
+    <div class="check">✓</div>
+    <h2>Prenotazione confermata</h2>
+    <div class="riepilogo" id="riepilogoOk" style="text-align:left"></div>
+    <p class="sub">Se non puoi venire, avvisaci almeno 2 ore prima.</p>
+    <p style="margin-top:20px"><a class="btn" id="waOk" target="_blank" rel="noopener">Invia conferma su WhatsApp</a></p>
+    <button class="btn sec" type="button" onclick="location.reload()">Nuova prenotazione</button>
+  </div>
+
+  <footer>
+    Martedì–sabato 9:00–13:00 · 15:00–20:00<br>
+    Domenica e lunedì chiuso<br>
+    <a href="https://wa.me/393486257618" target="_blank" rel="noopener">WhatsApp 348 625 7618</a> ·
+    <a href="https://www.instagram.com/rb_barber_shop_" target="_blank" rel="noopener">Instagram</a>
+  </footer>
+</div>
+
+<script>
+const WA = "393486257618";
+const GG = ["Dom","Lun","Mar","Mer","Gio","Ven","Sab"];
+const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+const st = { servizi: [], servizio: null, data: null, ora: null };
+const $ = (id) => document.getElementById(id);
+
+const parse = (d) => { const [y,m,g] = d.split("-").map(Number); return new Date(Date.UTC(y, m-1, g)); };
+const dataLunga = (d) => { const x = parse(d); return `${["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"][x.getUTCDay()]} ${x.getUTCDate()} ${MESI[x.getUTCMonth()]}`; };
+
+function premi(contenitore, btn) {
+  contenitore.querySelectorAll("[aria-pressed]").forEach(b => b.setAttribute("aria-pressed", "false"));
+  btn.setAttribute("aria-pressed", "true");
+}
+function mostra(id) { $(id).classList.remove("hidden"); }
+function nascondi(id) { $(id).classList.add("hidden"); }
+function scorri(id) { setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 60); }
+
+function nonAttivo() {
+  $("servizi").innerHTML = `<p class="info">Le prenotazioni online non sono disponibili in questo momento. Scrivici su <a href="https://wa.me/${WA}">WhatsApp</a> e ti rispondiamo appena possibile.</p>`;
+}
+
+async function avvio() {
+  try {
+    const r = await fetch("/api/info");
+    if (!r.ok) throw 0;
+    const { servizi, giorni } = await r.json();
+    st.servizi = servizi;
+    const box = $("servizi"); box.innerHTML = "";
+    servizi.forEach(s => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "opt"; b.setAttribute("aria-pressed", "false");
+      b.innerHTML = `<b>${s.nome}</b><small>${s.durata} min</small>`;
+      b.onclick = () => { premi(box, b); st.servizio = s; st.ora = null; mostra("secGiorno"); nascondi("secDati"); if (st.data) caricaOrari(); else scorri("secGiorno"); };
+      box.appendChild(b);
+    });
+    const gb = $("giorni"); gb.innerHTML = "";
+    giorni.forEach(g => {
+      const x = parse(g.data);
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "g"; b.disabled = !g.aperto; b.setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-label", dataLunga(g.data) + (g.aperto ? "" : ", chiuso"));
+      b.innerHTML = `<span>${GG[x.getUTCDay()]}</span><strong>${x.getUTCDate()}</strong>`;
+      b.onclick = () => { premi(gb, b); st.data = g.data; st.ora = null; $("mese").textContent = dataLunga(g.data); nascondi("secDati"); caricaOrari(); };
+      gb.appendChild(b);
+    });
+    const primo = giorni.find(g => g.aperto); if (primo) $("mese").textContent = "Scegli il giorno";
+  } catch { nonAttivo(); }
+}
+
+async function caricaOrari() {
+  mostra("secOra");
+  const box = $("orari");
+  box.innerHTML = '<div class="skel" style="grid-column:1/-1"></div>';
+  scorri("secOra");
+  try {
+    const r = await fetch(`/api/disponibilita?data=${st.data}&servizio=${st.servizio.id}`);
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.errore);
+    box.innerHTML = "";
+    if (!j.orari.length) { box.innerHTML = '<p class="info" style="grid-column:1/-1">Nessun orario libero in questo giorno. Prova un altro giorno.</p>'; return; }
+    const mattina = j.orari.filter(o => o < "14:00"), pome = j.orari.filter(o => o >= "14:00");
+    [["Mattina", mattina], ["Pomeriggio", pome]].forEach(([t, lista]) => {
+      if (!lista.length) return;
+      const h = document.createElement("p"); h.className = "gruppo"; h.textContent = t; box.appendChild(h);
+      lista.forEach(o => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "o"; b.textContent = o; b.setAttribute("aria-pressed", "false");
+        b.onclick = () => { premi(box, b); st.ora = o; riepilogo(); mostra("secDati"); scorri("secDati"); };
+        box.appendChild(b);
+      });
+    });
+  } catch { box.innerHTML = `<p class="info" style="grid-column:1/-1">Non riesco a caricare gli orari. Riprova tra poco o scrivici su <a href="https://wa.me/${WA}">WhatsApp</a>.</p>`; }
+}
+
+function righe() {
+  return `<div><span>Servizio</span><b>${st.servizio.nome}</b></div><div><span>Giorno</span><b>${dataLunga(st.data)}</b></div><div><span>Orario</span><b>${st.ora}</b></div>`;
+}
+function riepilogo() { $("riepilogo").innerHTML = righe(); $("errore").textContent = ""; }
+
+$("dati").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const nome = $("nome").value.trim(), telefono = $("telefono").value.trim();
+  if (nome.length < 2) { $("errore").textContent = "Inserisci nome e cognome."; $("nome").focus(); return; }
+  if (telefono.replace(/\D/g, "").length < 8) { $("errore").textContent = "Inserisci un numero di telefono valido."; $("telefono").focus(); return; }
+  const btn = $("invia"); btn.disabled = true; btn.textContent = "Prenotazione in corso…"; $("errore").textContent = "";
+  try {
+    const r = await fetch("/api/prenota", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ servizio: st.servizio.id, data: st.data, ora: st.ora, nome, telefono, note: $("note").value, sito: $("sito").value }) });
+    const j = await r.json();
+    if (!r.ok) {
+      $("errore").textContent = j.errore || "Qualcosa non ha funzionato, riprova.";
+      if (r.status === 409) caricaOrari();
+      throw 0;
+    }
+    nascondi("form");
+    $("riepilogoOk").innerHTML = righe();
+    const testo = `Ciao, ho prenotato ${st.servizio.nome.toLowerCase()} per ${dataLunga(st.data)} alle ${st.ora}. ${nome}`;
+    $("waOk").href = `https://wa.me/${WA}?text=${encodeURIComponent(testo)}`;
+    mostra("fatto"); window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch { btn.disabled = false; btn.textContent = "Conferma prenotazione"; }
+});
+
+avvio();
+</script>
+</body>
+</html>
